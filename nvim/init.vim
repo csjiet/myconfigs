@@ -20,15 +20,19 @@ Plug 'rebelot/kanagawa.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+"Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+
 call plug#end() "end vimplug
 
 "====== VIM Settings ======
+" What does `let' do? - define variables (strings, numerals)
+let mapleader = "\<Space>" " Set the leader key to the spacebar (for example)
+
+
 ""Colorscheme setting
 colorscheme kanagawa 
 
-"" let - define variables (strings, numerals)
-let mapleader = "\<Space>" " Set the leader key to the spacebar (for example)
 
 
 ""NetRW settings
