@@ -1,4 +1,7 @@
 -- Lua NeoVim guide: https://github.com/nanotee/nvim-lua-guide
+-- Pattern of adding plugins:
+-- 1. Add the plugin in the plugins table (local plugins = {})
+-- 2. Setup the plugin by calling the setup function (require("plugin_name".setup({})))
 
 ---------- Vim keymaps ---------- 
 vim.cmd("set number") -- vim script to lua conversion
@@ -16,6 +19,16 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.g.mapleader = " "
 
 
+-- Creds: https://www.youtube.com/watch?v=w7i4amO_zaE&t
+vim.keymap.set("n", "<C-d>", "<C-d>zz") -- downward half page scroll keeps cursor in middle
+vim.keymap.set("n", "<C-u>", "<C-u>zz") -- upward half page scroll keeps cursor in middle
+vim.keymap.set("n", "n", "nzzzv") -- jumping to next search term which is kept in the middle 
+vim.keymap.set("n", "N", "Nzzzv") -- jumping to previous search term which is kept in the middle
+
+-- Copy/yank to system clipboard
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
 -- NetRW remap to mimic NERDTREE/ NEOTree (Creds: https://www.youtube.com/watch?v=ID6ZcW6oMM0)
 -- vim.keymap.set("i", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
 -- vim.keymap.set("n", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
@@ -57,25 +70,25 @@ local plugins = {
 		"rebelot/kanagawa.nvim"
 	}, 
 
--- file system explorer
+	-- file system explorer
 	{
 		"preservim/nerdtree"
 	},
--- statusbar 
+	-- statusbar 
 	{
 		"itchyny/lightline.vim"	
 	},
 
--- git fugitive: Git command integration in vim
+	-- git fugitive: Git command integration in vim
 	{
 		"tpope/vim-fugitive"	
 	},
--- git gutter: shows a git diff in the sign column. It shows which lines have been added, modified, or removed. (Creds for intro: https://www.youtube.com/watch?v=gfa2_6OeOkk)
+	-- git gutter: shows a git diff in the sign column. It shows which lines have been added, modified, or removed. (Creds for intro: https://www.youtube.com/watch?v=gfa2_6OeOkk)
 	{
 		"airblade/vim-gitgutter"	
 	},
 
--- markdown preview
+	-- markdown preview
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -83,9 +96,29 @@ local plugins = {
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
 	-- Github copilot
+--	{
+--		"github/copilot.vim"	
+--	},
+	-- LSPs  (Language Server Protocol)
 	{
-		"github/copilot.vim"	
+		-- Mason (manage external editor tooling such as LSP servers, DAP servers, linters, and formatters)
+		"williamboman/mason.nvim", 
+		-- Mason lspconfig (closes some gaps that exist between mason.nvim and lspconfig)
+		"williamboman/mason-lspconfig.nvim",
+	},
+	-- NeoVim LSP Client
+	{
+		'neovim/nvim-lspconfig'
+	},
+	-- Codeium (Ai code completion)
+	-- 1) Install Codeium
+	-- 2) `:Codeium Auth`
+	{
+		'Exafunction/codeium.vim', 
+		event = 'BufEnter'
+
 	}
+
 }
 
 local opts = {}
@@ -109,35 +142,30 @@ config.setup({
 
 -- Color Scheme
 local colors = require('kanagawa')
-colors.setup({
-	compile = false,             -- enable compiling the colorscheme
-	undercurl = true,            -- enable undercurls
-	commentStyle = { italic = true },
-	functionStyle = {},
-	keywordStyle = { italic = true},
-	statementStyle = { bold = true },
-	typeStyle = {},
-	transparent = true,         -- do not set background color
-	dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-	terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-	colors = {                   -- add/modify theme and palette colors
-		palette = {},
-		theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-	},
-	overrides = function(colors) -- add/modify highlights
-		return {}
-	end,
-	theme = "wave",              -- Load "wave" theme when 'background' option is not set
-	background = {               -- map the value of 'background' option to a theme
-		dark = "wave",           -- try "dragon" !
-		light = "lotus"
-	},
-})
+colors.setup({})
+
+-- NERDTree
+vim.g.NERDTreeShowHidden = 1
 
 -- lightline status bar
 vim.g.lightline = {
-    colorscheme = 'wombat'
+	colorscheme = 'wombat'
 }
+
+-- Mason
+local mason = require('mason')
+mason.setup()
+
+-- Mason lspconfig
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup({ ensure_installed = { "lua_ls", "pyright", "marksman" }})
+
+-- Setup language servers.
+local lspconfig = require('lspconfig')
+-- setup each language server
+lspconfig.pyright.setup({})
+lspconfig.lua_ls.setup({})
+lspconfig.marksman.setup({})
 
 -------- Loading Plugins -------- 
 vim.cmd("colorscheme kanagawa")
@@ -151,4 +179,50 @@ vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
 -- NERDTree
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>')
 
+-- Nvim lspconfig
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
