@@ -15,9 +15,15 @@ vim.cmd("set mouse=a")
 vim.cmd("set termguicolors")
 vim.cmd("syntax on")
 vim.opt.scrolloff = 8 -- screen estate during scrolling always keeps 8 lines below 
+vim.opt.termguicolors = true
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.g.mapleader = " "
 
+-- Adjust size of pane 
+vim.keymap.set("n", "<C-w>+", ":resize +10<CR>")
+vim.keymap.set("n", "<C-w>-", ":resize -10<CR>")
+vim.keymap.set("n", "<C-w><", ":vertical resize -10<CR>")
+vim.keymap.set("n", "<C-w>>", ":vertical resize +10<CR>")
 
 -- Creds: https://www.youtube.com/watch?v=w7i4amO_zaE&t
 vim.keymap.set("n", "<C-d>", "<C-d>zz") -- downward half page scroll keeps cursor in middle
@@ -29,6 +35,12 @@ vim.keymap.set("n", "N", "Nzzzv") -- jumping to previous search term which is ke
 vim.keymap.set("n", "<leader>y", "\"+y")
 vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
+
+
+-- Exit from vim terminal mode (Creds: https://www.reddit.com/r/neovim/comments/yg2d9v/how_do_i_exit_the_terminal_mode/)
+vim.keymap.set("t", "<leader>et", "<C-\\><C-n>") 
+
+
 -- NetRW remap to mimic NERDTREE/ NEOTree (Creds: https://www.youtube.com/watch?v=ID6ZcW6oMM0)
 -- vim.keymap.set("i", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
 -- vim.keymap.set("n", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
@@ -117,7 +129,7 @@ local plugins = {
 		'Exafunction/codeium.vim', 
 		event = 'BufEnter'
 
-	}
+	},
 
 }
 
