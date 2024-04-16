@@ -40,6 +40,9 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 -- Exit from vim terminal mode (Creds: https://www.reddit.com/r/neovim/comments/yg2d9v/how_do_i_exit_the_terminal_mode/)
 vim.keymap.set("t", "<leader>et", "<C-\\><C-n>") 
 
+-- show vim buffer and type buffer number to switch to that buffer (Creds: https://www.reddit.com/r/vim/comments/u2v0fi/how_do_you_manage_buffers/)
+vim.keymap.set("n", "<leader>ls", ":ls<CR>:b<space>")
+
 
 -- NetRW remap to mimic NERDTREE/ NEOTree (Creds: https://www.youtube.com/watch?v=ID6ZcW6oMM0)
 -- vim.keymap.set("i", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
