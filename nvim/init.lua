@@ -11,7 +11,7 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set smarttab")
-vim.cmd("set mouse=a")
+vim.cmd("set mouse=v") -- Allows mouse highlight and copy in terminal shell. Credits: https://superuser.com/questions/436890/cant-copy-to-clipboard-from-vim 
 vim.cmd("set termguicolors")
 vim.cmd("syntax on")
 vim.opt.scrolloff = 8 -- screen estate during scrolling always keeps 8 lines below 
