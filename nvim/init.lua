@@ -44,8 +44,8 @@ vim.keymap.set("t", "<leader>et", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>ls", ":ls<CR>:b<space>")
 
 -- Rotate split buffers (Creds: https://stackoverflow.com/questions/1269603/to-switch-from-vertical-split-to-horizontal-split-fast-in-vim)
-vim.keymap.set("n", "<leader>rh", "<C-w>t<C-w>K")
-vim.keymap.set("n", "<leader>rv", "<C-w>t<C-w>H")
+-- vim.keymap.set("n", "<leader>rh", "<C-w>t<C-w>K")
+-- vim.keymap.set("n", "<leader>rv", "<C-w>t<C-w>H")
 
 
 -- NetRW remap to mimic NERDTREE/ NEOTree (Creds: https://www.youtube.com/watch?v=ID6ZcW6oMM0)
