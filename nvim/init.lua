@@ -43,6 +43,10 @@ vim.keymap.set("t", "<leader>et", "<C-\\><C-n>")
 -- show vim buffer and type buffer number to switch to that buffer (Creds: https://www.reddit.com/r/vim/comments/u2v0fi/how_do_you_manage_buffers/)
 vim.keymap.set("n", "<leader>ls", ":ls<CR>:b<space>")
 
+-- Rotate split buffers (Creds: https://stackoverflow.com/questions/1269603/to-switch-from-vertical-split-to-horizontal-split-fast-in-vim)
+vim.keymap.set("n", "<leader>rh", "<C-w>t<C-w>K")
+vim.keymap.set("n", "<leader>rv", "<C-w>t<C-w>H")
+
 
 -- NetRW remap to mimic NERDTREE/ NEOTree (Creds: https://www.youtube.com/watch?v=ID6ZcW6oMM0)
 -- vim.keymap.set("i", "<C-n>", "<Esc>:Lex<CR> :vertical resize 30<CR>")
