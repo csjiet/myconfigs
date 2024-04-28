@@ -153,11 +153,11 @@ tele.setup({
 		-- config_key = value,
 		mappings = {
 			n = {
-				['<c-d>'] = require('telescope.actions').delete_buffer
+				['<c-x>'] = require('telescope.actions').delete_buffer
 			}, -- n
 			i = {
 				["<C-h>"] = "which_key",
-				['<c-d>'] = require('telescope.actions').delete_buffer
+				['<c-x>'] = require('telescope.actions').delete_buffer
 			} -- i
 		} -- mappings
 	}, -- defaults
@@ -207,7 +207,8 @@ vim.cmd("colorscheme kanagawa")
 -- Telescope
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>ls', ":Telescope buffers<CR>", {})
+vim.keymap.set('n', '<leader>ls', ":Telescope buffers<CR>", {}) -- Or: vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+
 
 -- NERDTree
 vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>')
