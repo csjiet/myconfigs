@@ -137,7 +137,7 @@ local plugins = {
 		event = 'BufEnter'
 
 	},
-	-- esc52 yank and paste in remote development (Creds: https://github.com/ojroques/nvim-osc52)
+	-- OSC52 --- yank and paste in remote development (Creds: https://github.com/ojroques/nvim-osc52)
 	-- Super legendary plugin allows us to travel through the clouds
 	{
 		'ojroques/nvim-osc52',
@@ -172,7 +172,7 @@ tele.setup({
 	}, -- defaults
 })
 
--- ESC52 remote yank and paste
+-- OSC52 remote yank and paste
 local osc52 = require('osc52')
 osc52.setup()
 
