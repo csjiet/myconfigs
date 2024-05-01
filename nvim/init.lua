@@ -95,7 +95,8 @@ local plugins = {
 	},
 	-- statusbar 
 	{
-		"itchyny/lightline.vim"	
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 
 	-- git fugitive: Git command integration in vim
@@ -193,9 +194,13 @@ colors.setup({})
 vim.g.NERDTreeShowHidden = 1
 
 -- lightline status bar
-vim.g.lightline = {
-	colorscheme = 'wombat'
-}
+-- vim.g.lightline = {
+-- 	colorscheme = 'wombat',
+-- }
+
+local lualine = require('lualine')
+lualine.setup()
+
 
 -- Mason
 local mason = require('mason')
