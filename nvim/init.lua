@@ -199,7 +199,6 @@ vim.g.NERDTreeShowHidden = 1
 -- }
 
 local lualine = require('lualine')
-local lualine = require('lualine')                                                                                                                                           
 lualine.setup {                                                                                                                                                              options = {
 	icons_enabled = true,																																																																											theme = 'auto', 
 },                                                                                                                                                                         sections = {
