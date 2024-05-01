@@ -137,6 +137,11 @@ local plugins = {
 		event = 'BufEnter'
 
 	},
+	-- esc52 yank and paste in remote development (Creds: https://github.com/ojroques/nvim-osc52)
+	-- Super legendary plugin allows us to travel through the clouds
+	{
+		'ojroques/nvim-osc52',
+	},
 
 }
 
@@ -166,6 +171,10 @@ tele.setup({
 		} -- mappings
 	}, -- defaults
 })
+
+-- ESC52 remote yank and paste
+local osc52 = require('osc52')
+osc52.setup()
 
 -- Treesitter
 local config = require('nvim-treesitter.configs')
@@ -208,6 +217,11 @@ vim.cmd("colorscheme kanagawa")
 
 
 -------- Vim Keymaps for plugins -------- 
+-- OSC52
+vim.keymap.set('n', '<leader>y', osc52.copy_operator, {expr = true})
+vim.keymap.set('n', '<leader>yy', '<leader>c_', {remap = true})
+vim.keymap.set('v', '<leader>y', osc52.copy_visual)
+
 -- Telescope
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
