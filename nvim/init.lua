@@ -31,10 +31,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz") -- upward half page scroll keeps cursor 
 vim.keymap.set("n", "n", "nzzzv") -- jumping to next search term which is kept in the middle 
 vim.keymap.set("n", "N", "Nzzzv") -- jumping to previous search term which is kept in the middle
 
--- Copy/yank to system clipboard
-vim.keymap.set("n", "<leader>y", "\"+y")
-vim.keymap.set("v", "<leader>y", "\"+y")
-vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 
 -- Exit from vim terminal mode (Creds: https://www.reddit.com/r/neovim/comments/yg2d9v/how_do_i_exit_the_terminal_mode/)
@@ -277,10 +273,16 @@ vim.cmd("colorscheme kanagawa")
 
 
 -------- Vim Keymaps for plugins -------- 
--- OSC52
-vim.keymap.set('n', '<leader>y', osc52.copy_operator, {expr = true})
-vim.keymap.set('n', '<leader>yy', '<leader>c_', {remap = true})
-vim.keymap.set('v', '<leader>y', osc52.copy_visual)
+---YANK! Choose one depending on usage ---
+-- OSC52: REMOTE yank into local system clipboard
+-- vim.keymap.set('n', '<leader>y', osc52.copy_operator, {expr = true})
+-- vim.keymap.set('n', '<leader>yy', '<leader>c_', {remap = true})
+-- vim.keymap.set('v', '<leader>y', osc52.copy_visual)
+
+-- LOCAL yank into local system clipboard
+vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("v", "<leader>y", "\"+y")
+vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 -- Telescope
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
