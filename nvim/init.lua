@@ -140,6 +140,10 @@ local plugins = {
 		'ojroques/nvim-osc52',
 	},
 
+	{ 
+		"lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} 
+	},
+
 }
 
 local opts = {}
@@ -172,6 +176,10 @@ tele.setup({
 -- OSC52 remote yank and paste
 local osc52 = require('osc52')
 osc52.setup()
+
+-- Indent blankline plugin
+local blankline = require("ibl")
+blankline.setup()
 
 -- Treesitter
 local config = require('nvim-treesitter.configs')
