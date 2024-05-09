@@ -140,9 +140,10 @@ local plugins = {
 		'ojroques/nvim-osc52',
 	},
 
-	{ 
-		"lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} 
-	},
+	-- SLOW for big files!
+	-- { 
+	-- 	"lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} 
+	-- },
 
 }
 
@@ -178,8 +179,8 @@ local osc52 = require('osc52')
 osc52.setup()
 
 -- Indent blankline plugin
-local blankline = require("ibl")
-blankline.setup()
+-- local blankline = require("ibl")
+-- blankline.setup()
 
 -- Treesitter
 local config = require('nvim-treesitter.configs')
