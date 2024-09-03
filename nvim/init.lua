@@ -96,11 +96,6 @@ local plugins = {
 	{
 		"rebelot/kanagawa.nvim"
 	}, 
-
-	-- file system explorer
-	{
-		"preservim/nerdtree"
-	},
 	-- statusbar 
 	{
 		'nvim-lualine/lualine.nvim',
