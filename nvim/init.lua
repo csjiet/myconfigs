@@ -19,6 +19,8 @@ vim.opt.termguicolors = true
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.g.mapleader = " "
 
+vim.o.clipboard = "unnamedplus" -- enable clipboard for remote yank
+
 -- Adjust size of pane 
 vim.keymap.set("n", "<C-w>+", ":resize +10<CR>")
 vim.keymap.set("n", "<C-w>-", ":resize -10<CR>")
