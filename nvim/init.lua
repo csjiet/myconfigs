@@ -97,11 +97,6 @@ local plugins = {
 
 	{
 		"rebelot/kanagawa.nvim"
-	}, 
-
-	-- file system explorer
-	{
-		"preservim/nerdtree"
 	},
 	-- statusbar 
 	{
@@ -177,9 +172,9 @@ local plugins = {
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	{
-		'itchyny/calendar.vim',
-	},
+	-- {
+	-- 	'itchyny/calendar.vim',
+	-- },
 	{
 		"epwalsh/obsidian.nvim",
 		version = "*",  -- recommended, use latest release instead of latest commit
