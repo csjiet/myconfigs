@@ -98,6 +98,11 @@ local plugins = {
 	{
 		"rebelot/kanagawa.nvim"
 	}, 
+
+	-- file system explorer
+	{
+		"preservim/nerdtree"
+	},
 	-- statusbar 
 	{
 		'nvim-lualine/lualine.nvim',
@@ -135,6 +140,19 @@ local plugins = {
 	{
 		'neovim/nvim-lspconfig'
 	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+		opts = {
+			bind = true,
+			handler_opts = {
+				border = "rounded"
+			}
+		},
+		-- or use config
+		-- config = function(_, opts) require'lsp_signature'.setup({you options}) end
+	},
+
 	-- Codeium (Ai code completion)
 	-- 1) Install Codeium
 	-- 2) `:Codeium Auth`
@@ -158,8 +176,36 @@ local plugins = {
 		opts = {},
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-	}
+	},
+	{
+		'itchyny/calendar.vim',
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*",  -- recommended, use latest release instead of latest commit
+		lazy = true,
+		ft = "markdown",
+		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+		-- event = {
+		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+		--   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+		--   -- refer to `:h file-pattern` for more examples
+		--   "BufReadPre path/to/my-vault/*.md",
+		--   "BufNewFile path/to/my-vault/*.md",
+		-- },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
 
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "personal",
+					path = "~/Documents/A_Obsidian_Notes",
+				},
+			},
+		},
+	}
 }
 
 local opts = {}
@@ -201,7 +247,7 @@ osc52.setup()
 local config = require('nvim-treesitter.configs')
 config.setup({
 	ensure_installed = {"lua", "python", "markdown"},
-	hightlight = {enable = true},
+	highlight = {enable = true},
 	indent = {enable = true}
 
 })
@@ -292,7 +338,21 @@ lspconfig.pyright.setup({})
 lspconfig.lua_ls.setup({})
 lspconfig.marksman.setup({})
 
+-- setup nvim-cmp that works with lsp
+local nvim_cmp = require("cmp")
+nvim_cmp.setup({
+    experimental = {
+        ghost_text = true,
+    }
+})
 
+-- lsp signature
+local lsp_signature = require('lsp_signature')
+lsp_signature.setup()
+
+-- nvim calendar
+
+-- nvim obsidian
 
 -- oil.nvim file explorer
 require("oil").setup({
